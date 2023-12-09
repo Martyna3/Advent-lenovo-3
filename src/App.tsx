@@ -28,7 +28,7 @@ function Letter({ letter, variant }: { letter: string; variant: Variant }) {
   }
   return (
     <span
-      className={`inline-block w-8 h-8 text-center pt-1 mx-1 shadow capitalize ${color}`}
+      className={`inline-block w-8 h-8 text-center pt-1 mx-1 my-1 shadow capitalize ${color}`}
     >
       {letter}
     </span>
@@ -91,10 +91,10 @@ function App() {
         height={200}
         className="mx-auto rounded-full my-4"
       />
-      <EncryptedWord word="snrpzeoom" cipher={routeCipher} checksum={4975} />
-      <EncryptedWord word="nqiragh" cipher={caesarCipher} checksum={3120} />
-      <EncryptedWord word="vu" cipher={affineCipher} checksum={308} />
-      <EncryptedWord word="tzmlbh" cipher={keyCipher} checksum={2340} />
+      <EncryptedWord word="fcbamberz" cipher={caesarCipher} checksum={4975} />
+      <EncryptedWord word="oznubxs" cipher={affineCipher} checksum={3120} />
+      <EncryptedWord word="rz" cipher={keyCipher} checksum={308} />
+      <EncryptedWord word="lnveoo" cipher={routeCipher} checksum={2340} />
       <div className="h-4 w-11/12 rounded-full bg-blue mx-auto my-6" />
       <EncryptedWord
         word="citeaasgoyxcjzaqa"

@@ -19,6 +19,37 @@ export function caesarCipher(word: string): string {
   return result;
 }
 
+// Jednoduchá afinní šifra s klíčem 5x + 8
+// https://crypto.interactive-maths.com/affine-cipher.html
+export function affineCipher(word: string): string {
+  // Získáme hodnoty znaků slova, odečítáme 97, protože znaky jsou od 97 do 122
+  const values = word.toLowerCase().split('').map(char => char.charCodeAt(0) - 97);
+
+  // Vypočítáme nové hodnoty znaků
+  const newValues = values.map(value => modulo((value + 5 * 8), 26));
+
+  // Vytvoříme si výsledný řetězec převedením čísel zpět na znaky
+  const result = newValues.map(value => String.fromCharCode(value + 97)).join('');
+
+  return result;
+}
+
+// Šifra podle klíče
+// Každé písmeno je posunuto podle hodnoty v klíči
+// Např. klíč ABCD znamená, že první písmeno je posunuto o hodnotu A (1), druhé o hodnotu B (2), třetí o hodnotu C (3) a čtvrté o hodnotu D (4)
+// Klíčem je 'reactgirls'
+export function keyCipher(word: string): string {
+  const key = 'reactgirls';
+
+  // Získáme hodnoty znaků klíče, odečítáme 96, protože znaky jsou od 97 do 122 a my chceme začít od 1
+  const values = key.toLowerCase().split('').map(char => char.charCodeAt(0) - 96);
+
+  // Posuneme znaky podle klíče, nejdříve je převedeme na malá písmena, pak je převedeme na čísla od 0 do 25, poté je posuneme podle klíče a nakonec převedeme zpět na písmena
+  const result = word.toLowerCase().split('').map((char, index) => String.fromCharCode(modulo((char.charCodeAt(0) - 97 - values[index % values.length]), 26) + 97)).join('');
+
+  return result;
+}
+
 // Jednoduchá směrovací šifra s maticí o šířce 3 a cestou zleva doprava a shora dolů
 // https://crypto.interactive-maths.com/route-cipher.html
 export function routeCipher(word: string): string {
@@ -50,38 +81,6 @@ export function routeCipher(word: string): string {
   }
 
   return result.trim();
-}
-
-// Jednoduchá afinní šifra s klíčem 5x + 8
-// https://crypto.interactive-maths.com/affine-cipher.html
-export function affineCipher(word: string): string {
-  //
-  // Získáme hodnoty znaků slova, odečítáme 97, protože znaky jsou od 97 do 122
-  const values = word.toLowerCase().split('').map(char => char.charCodeAt(0) - 97);
-
-  // Vypočítáme nové hodnoty znaků, podle vzorce (5x + 8) mod 26
-  const newValues = values.map(value => modulo((value + 5 * 8), 26));
-
-  // Vytvoříme si výsledný řetězec převedením čísel zpět na znaky
-  const result = newValues.map(value => String.fromCharCode(value + 97)).join('');
-
-  return result;
-}
-
-// Šifra podle klíče
-// Každé písmeno je posunuto podle hodnoty v klíči
-// Např. klíč ABCD znamená, že první písmeno je posunuto o hodnotu A (1), druhé o hodnotu B (2), třetí o hodnotu C (3) a čtvrté o hodnotu D (4)
-// Klíčem je 'reactgirls'
-export function keyCipher(word: string): string {
-  const key = 'reactgirls';
-
-  // Získáme hodnoty znaků klíče, odečítáme 96, protože znaky jsou od 97 do 122
-  const values = key.toLowerCase().split('').map(char => char.charCodeAt(0) - 96);
-
-  // Posuneme znaky podle klíče, nejdříve je převedeme na malá písmena, pak je převedeme na čísla od 0 do 25, poté je posuneme podle klíče a nakonec převedeme zpět na písmenaf
-  const result = word.toLowerCase().split('').map((char, index) => String.fromCharCode(modulo((char.charCodeAt(0) - 97 - values[index % values.length]), 26) + 97)).join('');
-
-  return result;
 }
 
 // Finální šifra kombinující všechny předchozí šifry
