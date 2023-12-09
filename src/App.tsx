@@ -1,3 +1,4 @@
+import Fireworks from "@fireworks-js/react";
 import "./App.css";
 import {
   affineCipher,
@@ -6,6 +7,7 @@ import {
   routeCipher,
   superCipher,
 } from "./ciphers";
+import { createPortal } from "react-dom";
 
 type Variant = "green" | "red" | "white";
 type Cipher = (word: string) => string;
@@ -57,7 +59,7 @@ function calculateChecksum(word: string): number {
     .split("")
     .reduce(
       (sum, letter, index) => sum + (index + 1) * letter.charCodeAt(0),
-      0,
+      0
     );
 }
 
@@ -65,10 +67,12 @@ function EncryptedWord({
   word,
   cipher,
   checksum,
+  isFinal,
 }: {
   word: string;
   cipher: Cipher;
   checksum: number;
+  isFinal?: boolean;
 }) {
   const decrypted = cipher(word);
   const checksumCorrect = calculateChecksum(decrypted) === checksum;
@@ -78,6 +82,13 @@ function EncryptedWord({
       <Word word={word} />
       <Arrow />
       <Word word={decrypted} variant={checksumCorrect ? "green" : "red"} />
+
+      {isFinal &&
+        checksumCorrect &&
+        createPortal(
+          <Fireworks className="absolute top-0 left-0 right-0 bottom-0" />,
+          document.body
+        )}
     </div>
   );
 }
@@ -100,6 +111,7 @@ function App() {
         word="citeaasgoyxcjzaqa"
         cipher={superCipher}
         checksum={16644}
+        isFinal
       />
     </>
   );
