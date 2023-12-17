@@ -12,7 +12,7 @@ export function caesarCipher(word: string): string {
   for (let i = 0; i < word.length; i++) {
     const char = word[i].toLowerCase();
     // Odečteme 97, protože znaky jsou od 97 do 122 a přičteme hodnotu posunu
-    const ch = String.fromCharCode(modulo((char.charCodeAt(0) + 12 - 97), 26) + 97);
+    const ch = String.fromCharCode(modulo((char.charCodeAt(0) + 13 - 97), 26) + 97);
     result += ch;
   }
 
@@ -26,7 +26,7 @@ export function affineCipher(word: string): string {
   const values = word.toLowerCase().split('').map(char => char.charCodeAt(0) - 97);
 
   // Vypočítáme nové hodnoty znaků
-  const newValues = values.map(value => modulo((value + 5 * 8), 26));
+  const newValues = values.map(value => modulo((value * 5 + 8), 26));
 
   // Vytvoříme si výsledný řetězec převedením čísel zpět na znaky
   const result = newValues.map(value => String.fromCharCode(value + 97)).join('');
