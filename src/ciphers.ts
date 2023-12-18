@@ -45,7 +45,7 @@ export function keyCipher(word: string): string {
   const values = key.toLowerCase().split('').map(char => char.charCodeAt(0) - 96);
 
   // Posuneme znaky podle klíče, nejdříve je převedeme na malá písmena, pak je převedeme na čísla od 0 do 25, poté je posuneme podle klíče a nakonec převedeme zpět na písmena
-  const result = word.toLowerCase().split('').map((char, index) => String.fromCharCode(modulo((char.charCodeAt(0) - 97 - values[index % values.length]), 26) + 97)).join('');
+  const result = word.toLowerCase().split('').map((char, index) => String.fromCharCode(modulo((char.charCodeAt(0) - 97 + values[index % values.length]), 26) + 97)).join('');
 
   return result;
 }
