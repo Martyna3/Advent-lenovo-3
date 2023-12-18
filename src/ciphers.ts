@@ -65,7 +65,7 @@ export function routeCipher(word: string): string {
   let index = 0;
   for (let y = 0; y < height; y++) {
     matrix[y] = [];
-    for (let x = 0; x < width && index < word.length; x++) {
+    for (let x = 0; x < width && index < word.length; x++, index++) {
       // Vezmeme znak z řetězce a převedeme na malé písmeno na pozici x a y
       matrix[y][x] = word[index].toLowerCase();
     }
